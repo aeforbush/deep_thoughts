@@ -1,3 +1,4 @@
+// mongoose connection is imported here
 const express = require('express');
 const db = require('./config/connection');
 
