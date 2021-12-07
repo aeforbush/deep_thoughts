@@ -34,12 +34,18 @@ const typeDefs = gql`
     thought(_id: ID!): Thought
   }
   type Mutation {
-    login(email: String!, password: String!): User
-    addUser(username: String!, email: String!, password: String!): User
+    login(email: String!, password: String!): Auth
+    addUser(username: String!, email: String!, password: String!): Auth
+  }
+  type Auth {
+    token: ID!
+    user: User
   }
 `;
 
 // export the typeDefs
 module.exports = typeDefs;
 
-//With this type, we define that a user will return all the data in their Mongoose model. Note that the friends field is an array that will be populated with data that also adheres to the User type, as a user's friends should follow the same data pattern as that user. Also notice the thoughts field is an array of Thought types. While we do in fact have to explicitly define most—if not all—data a GraphQL server works with, it isn't terribly hard for us to be able to share and reuse data types after we've created them.
+// type Mutation: With this type, we define that a user will return all the data in their Mongoose model. Note that the friends field is an array that will be populated with data that also adheres to the User type, as a user's friends should follow the same data pattern as that user. Also notice the thoughts field is an array of Thought types. While we do in fact have to explicitly define most—if not all—data a GraphQL server works with, it isn't terribly hard for us to be able to share and reuse data types after we've created them.
+
+// type Auth: This means that an Auth type must return a token and can optionally include any other user data.
