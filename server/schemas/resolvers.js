@@ -1,5 +1,7 @@
 // serve the response for the query here
 const { User, Thought } = require("../models");
+// built in error handling
+const { AuthenticationError } = require('apollo-server-express');
 
 const resolvers = {
   Query: {
@@ -30,6 +32,28 @@ const resolvers = {
     // function to find a single thought
     thought: async (parent, { _id }) => {
       return Thought.findOne({ _id });
+    },
+  },
+  Mutation: {
+    // Mongoose User model creates a new user in db with whatever is passed in as the args
+    addUser: async (parent, args) => {
+      const user = await User.create(args);
+
+      return user;
+    },
+    login: async (parent, { email, password }) => {
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        throw new AuthenticationError('Incorrect credentials');
+      }
+      const correctPw = await user.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw new AuthenticationError('Incorrect credentials')
+      }
+
+      return user;
     },
   },
 };
