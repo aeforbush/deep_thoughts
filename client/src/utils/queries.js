@@ -1,4 +1,4 @@
-import { gql } from 'apollp/client';
+import { gql } from 'graphql-tag';
 
 export const QUERY_THOUGHTS = gql`
 query thoguhts($username: String) {
