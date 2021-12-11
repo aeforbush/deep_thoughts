@@ -34,7 +34,20 @@ class AuthService {
   getToken() {
     // retrieves the user token from localStorage
     return localStorage.getItem("id_token");
+  }
 
+  // set token to localStorage and reload page to home page
+  login(idToken) {
+    // saves user token to local storage
+    localStorage.setItem("id_token", idToken);
+
+    window.location.assign("/");
+  }
+  // clear token from localStorage and force logout with reload
+  logout() {
+    // Clear user token and profile data from localStorage
+    localStorage.removeItem("id_token");
+    // this will reload the page and reset the state of the application
     window.location.assign("/");
   }
 }
